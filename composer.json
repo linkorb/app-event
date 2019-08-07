@@ -1,0 +1,34 @@
+{
+    "name": "linkorb/app-event",
+    "description": "Provides a way for applications to integrate a standard scheme for logging Application Events",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "LinkORB",
+            "email": "engineering@linkorb.com",
+            "role": "Development"
+        }
+    ],
+    "require": {
+        "php": "^7.1.3",
+        "monolog/monolog": "^1.24",
+        "psr/log": "^1.0"
+    },
+    "require-dev": {
+        "symfony/phpunit-bridge": "^4.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "LinkORB\\AppEvent\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LinkORB\\AppEvent\\Test\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

@@ -1,0 +1,53 @@
+# Managed by package managers
+
+# Parameters
+/app/config/parameters.yml
+/app/config/parameters.yml.bak
+
+# Tests
+tests/behat.yml
+tests/phpunit.xml
+
+# Mac
+.DS_Store
+
+# Project
+*.sublime-*
+### JetBrains template
+# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio
+*.iml
+## Directory-based project format:
+.idea/
+
+# Other
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+test/nginx/*.conf
+!test/nginx/.gitkeep
+docker/docker-compose.override.yaml
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.deploy
+/.env.local.php
+/.env.*.local
+/.env.*.local.deploy
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+###> symfony/phpunit-bridge ###
+.phpunit
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+
+###> symfony/web-server-bundle ###
+/.web-server-pid
+###< symfony/web-server-bundle ###
+
+###> friendsofphp/php-cs-fixer ###
+/.php_cs
+/.php_cs.cache
+###< friendsofphp/php-cs-fixer ###
+/composer.lock
