@@ -54,6 +54,12 @@ class AppEventFormatterTest extends TestCase
 
         yield 'basic event' => [$record, $normalised];
 
+        $record['context']['jsonable'] = new Jsonable(new \DateTime('2000-01-01T01:01:01+00:00'));
+        $normalised['event']['jsonable']['prop'] = '2000-01-01T01:01:01+00:00';
+        yield 'event with JsonSerializable object which is recursively normalised' => [$record, $normalised];
+
+        unset($record['context']['jsonable'], $normalised['event']['jsonable']);
+
         $record['extra']['tags'] = $normalised['tags'] = ['one-tag', 'two-tag'];
         yield 'event with tags' => [$record, $normalised];
 
@@ -127,5 +133,18 @@ class AppEventFormatterTest extends TestCase
             'batch of one event' => [[$record1], [$normalised1]],
             'batch of two events' => [[$record1, $record2], [$normalised1, $normalised2]],
         ];
+    }
+}
+
+class Jsonable implements \JsonSerializable
+{
+    private $prop;
+    public function __construct($prop)
+    {
+        $this->prop = $prop;
+    }
+    public function jsonSerialize()
+    {
+        return ['prop' => $this->prop];
     }
 }

@@ -42,6 +42,8 @@ class AppEventFormatter implements FormatterInterface
      *
      * Instances of DateTime are formatted as strings according to dateFormat.
      *
+     * Instances of JsonSerializable are recursively normalised.
+     *
      * Resources (which cannot be encoded as Json) are scrubbed from the log
      * record, leaving just the name of the resource type.
      */
@@ -68,6 +70,10 @@ class AppEventFormatter implements FormatterInterface
 
         if ($data instanceof \DateTime) {
             return $data->format($this->dateFormat);
+        }
+
+        if ($data instanceof \JsonSerializable) {
+            return $this->normalize($data->jsonSerialize(), $depth + 1);
         }
 
         if (\is_resource($data)) {
