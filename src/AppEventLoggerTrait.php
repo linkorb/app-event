@@ -14,7 +14,7 @@ trait AppEventLoggerTrait
         $this->appEventLogger = $logger;
     }
 
-    public function setDefaultLogLevel(string $level): void
+    public function setDefaultLogLevel($level): void
     {
         $this->defaultLogLevel = $level;
     }
