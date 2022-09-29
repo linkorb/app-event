@@ -22,12 +22,12 @@ class AppEventFormatter implements FormatterInterface
         $this->formatter = $formatter;
     }
 
-    public function format(array $record)
+    public function format(array $record): mixed
     {
         return $this->formatter->format($this->normalize($this->map($record)));
     }
 
-    public function formatBatch(array $records)
+    public function formatBatch(array $records): mixed
     {
         $batch = [];
         foreach ($records as $record) {

@@ -12,7 +12,7 @@ class AppEventFormatterTest extends TestCase
     private $decoratedFormatter;
     private $formatter;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->decoratedFormatter = $this->getMockBuilder(FormatterInterface::class)
             ->getMock()
@@ -143,7 +143,7 @@ class Jsonable implements \JsonSerializable
     {
         $this->prop = $prop;
     }
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         return ['prop' => $this->prop];
     }

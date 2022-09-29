@@ -11,7 +11,7 @@ class AppEventLoggerTraitTest extends TestCase
     private $logger;
     private $service;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->logger = $this->getMockForAbstractClass(LoggerInterface::class);
         $this->service = $this->getMockForTrait(AppEventLoggerTrait::class);
