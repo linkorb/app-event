@@ -134,6 +134,50 @@ class AppEventFormatterTest extends TestCase
             'batch of two events' => [[$record1, $record2], [$normalised1, $normalised2]],
         ];
     }
+
+    /**
+     * @dataProvider normalizeExamples
+     */
+    public function testNormalize($data, $expected)
+    {
+        $formatter = new AppEventFormatterNormalizeAccess($this->decoratedFormatter);
+
+        $this->assertSame($expected, $formatter->exposeNormalize($data));
+    }
+
+    public function normalizeExamples()
+    {
+        yield 'json serializable is normalised recursively' => [
+            new Jsonable(new \DateTime('2000-01-01T01:01:01+00:00')),
+            ['prop' => '2000-01-01T01:01:01+00:00'],
+        ];
+
+        yield 'resource is scrubbed' => [
+            fopen('php://temp', 'r'),
+            '(scrubbed a resource of type stream)',
+        ];
+
+        $tooMany = array_fill(0, 1001, 'item');
+        $truncated = array_fill(0, 1000, 'item');
+        $truncated['...'] = 'Over 1000 items (1001 total), aborting normalization';
+        yield 'array over 1000 items aborts normalization' => [$tooMany, $truncated];
+
+        $deep = 'leaf';
+        $expectedDeep = 'Over 9 levels deep, aborting normalization';
+        for ($level = 0; $level < 10; ++$level) {
+            $deep = [$deep];
+            $expectedDeep = [$expectedDeep];
+        }
+        yield 'nesting over 9 levels aborts normalization' => [$deep, $expectedDeep];
+    }
+}
+
+class AppEventFormatterNormalizeAccess extends AppEventFormatter
+{
+    public function exposeNormalize($data, $depth = 0)
+    {
+        return $this->normalize($data, $depth);
+    }
 }
 
 class Jsonable implements \JsonSerializable
